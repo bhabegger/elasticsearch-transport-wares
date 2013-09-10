@@ -30,6 +30,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -96,6 +98,11 @@ public class NodeServlet extends HttpServlet {
 
         if (settings.get("http.enabled") == null) {
             settings.put("http.enabled", false);
+        }
+        
+        if(settings.get("path.data") == null) {
+        	File path = new File(getServletContext().getRealPath(getServletContext().getContextPath()),"data");
+        	settings.put("path.data",  path.getAbsolutePath());	
         }
 
         node = NodeBuilder.nodeBuilder().settings(settings).node();
