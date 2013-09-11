@@ -99,10 +99,15 @@ public class NodeServlet extends HttpServlet {
         if (settings.get("http.enabled") == null) {
             settings.put("http.enabled", false);
         }
-        
+
         if(settings.get("path.data") == null) {
-        	File path = new File(getServletContext().getRealPath(getServletContext().getContextPath()),"data");
+        	File path = new File(getServletContext().getRealPath("/WEB-INF/data"));
         	settings.put("path.data",  path.getAbsolutePath());	
+        }
+        
+        if(settings.get("path.logs") == null) {
+        	File path = new File(getServletContext().getRealPath("/WEB-INF/logs"));
+        	settings.put("path.logs",  path.getAbsolutePath());	
         }
 
         node = NodeBuilder.nodeBuilder().settings(settings).node();
